@@ -1,19 +1,15 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallController : MonoBehaviour
 {
-    [Header("��������� ����������")]
-    public float fallGravity = 9.8f;     // ���� ���������� ��� �������
-    public float riseGravity = -9.8f;    // ���� "��������������" ��� �������
-    public float maxFallSpeed = 10f;     // ������������ �������� �������
-    public float maxRiseSpeed = 10f;     // ������������ �������� �������
-
-    [Header("���� (Target)")]
-    public Transform target;             // ������ �� ������ Target
-    public float targetRightwardSpeed = 5f; // �������� �������� Target ������
-
-    [Header("��������� ��������")]
-    public float smoothTime = 0.1f;      // ����� ��� �������� ��������� ��������
+    public float fallGravity = 9.8f;
+    public float riseGravity = -9.8f;
+    public float maxFallSpeed = 10f;
+    public float maxRiseSpeed = 10f;
+    public Transform target;
+    public float targetRightwardSpeed = 5f;
+    public float smoothTime = 0.1f;
 
     private Rigidbody2D rb;
     private Vector2 currentVelocity;
@@ -55,6 +51,12 @@ public class BallController : MonoBehaviour
 
         Vector3 localPos = transform.localPosition;
         transform.localPosition = new Vector3(initialLocalPosition.x, localPos.y, localPos.z);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Dead")
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void OnGUI()
