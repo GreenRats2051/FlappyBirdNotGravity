@@ -8,17 +8,13 @@ public class ObjectSpawner : MonoBehaviour
     public float maxDistance = 5f;
     public float minDistanceBetweenObjects = 1.5f;
     public int maxAttempts = 50;
+    public int maxAmmount = 1;
 
     private List<Vector2> spawnedPositions = new List<Vector2>();
 
     void Start()
     {
-        SpawnRandomObjects();
-    }
-
-    void SpawnRandomObjects()
-    {
-        int numberOfObjects = Random.Range(0, 4);
+        int numberOfObjects = Random.Range(0, maxAmmount);
 
         for (int i = 0; i < numberOfObjects; i++)
         {

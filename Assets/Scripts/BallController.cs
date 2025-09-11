@@ -17,30 +17,13 @@ public class BallController : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-
-        if (rb != null)
-            rb.gravityScale = 0;
-
-        if (target == null && transform.parent != null)
-            target = transform.parent;
+        rb.gravityScale = 0;
+        target = transform.parent;
     }
 
     void Update()
     {
-        MoveTargetRight();
-        ControlPlayerVerticalMovement();
-    }
-
-    void MoveTargetRight()
-    {
-        if (target != null)
-            target.Translate(Vector3.right * targetRightwardSpeed * Time.deltaTime);
-    }
-
-    void ControlPlayerVerticalMovement()
-    {
-        if (rb == null) return;
+        target.Translate(Vector3.right * targetRightwardSpeed * Time.deltaTime);
 
         bool isHoldingInput = Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space);
 
@@ -57,15 +40,5 @@ public class BallController : MonoBehaviour
     {
         if (collision.collider.tag == "Dead")
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    void OnGUI()
-    {
-        GUI.Label(new Rect(10, 10, 300, 20), $"Player Local Y: {transform.localPosition.y:F1}");
-        if (target != null)
-        {
-            GUI.Label(new Rect(10, 30, 300, 20), $"Target Position X: {target.position.x:F1}");
-            GUI.Label(new Rect(10, 50, 300, 20), $"Player World Y: {transform.position.y:F1}");
-        }
     }
 }

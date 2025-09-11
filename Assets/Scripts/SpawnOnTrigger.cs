@@ -8,13 +8,7 @@ public class SpawnOnTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(playerTag))
-            SpawnObject();
-    }
-
-    private void SpawnObject()
-    {
-        if (objectToSpawn != null)
+        if (other.tag == playerTag)
             Instantiate(objectToSpawn, gameObject.transform.position + spawnPosition, Quaternion.identity);
     }
 }
