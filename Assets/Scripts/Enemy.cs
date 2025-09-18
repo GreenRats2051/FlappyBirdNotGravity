@@ -2,38 +2,50 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float moveSpeed = 3f;
-    public float moveDistance = 5f;
-    public bool isMovingUp = true;
+    [Header("Movement Settings")]
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float moveDistance = 5f;
+    [SerializeField] private bool startMovingUp = true;
 
     private Vector3 startPosition;
-    private float currentDistance = 0f;
+    private float currentDistance;
+    private bool isMovingUp;
+    private MovementDirection currentDirection;
 
-    void Start()
+    private enum MovementDirection { Up, Down }
+
+    private void Start()
     {
         startPosition = transform.position;
+        isMovingUp = startMovingUp;
+        currentDistance = 0f;
     }
 
-    void Update()
+    private void Update()
     {
-        float direction = isMovingUp ? 1f : -1f;
+        HandleMovement();
+    }
 
-        Vector3 movement = Vector3.up * direction * moveSpeed * Time.deltaTime;
+    private void HandleMovement()
+    {
+        float directionMultiplier = isMovingUp ? 1f : -1f;
+        Vector3 movement = Vector3.up * directionMultiplier * moveSpeed * Time.deltaTime;
 
         transform.Translate(movement);
-
         currentDistance += Mathf.Abs(movement.y);
 
         if (currentDistance >= moveDistance)
-        {
-            isMovingUp = !isMovingUp;
-            currentDistance = 0f;
-        }
+            ChangeDirection();
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void ChangeDirection()
     {
         isMovingUp = !isMovingUp;
         currentDistance = 0f;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        ChangeDirection();
     }
 }
