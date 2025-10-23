@@ -29,6 +29,12 @@ public class BallController : MonoBehaviour
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+
+        if (inputService == null)
+        {
+            inputService = new UnityInputService();
+            Initialize(inputService);
+        }
     }
 
     private void Update()
@@ -40,11 +46,17 @@ public class BallController : MonoBehaviour
 
     private void HandleTargetMovement()
     {
-        target.Translate(Vector3.right * targetRightwardSpeed * Time.deltaTime);
+        if (target != null)
+        {
+            target.Translate(Vector3.right * targetRightwardSpeed * Time.deltaTime);
+        }
     }
 
     private void HandleBallMovement()
     {
+        if (inputService == null)
+            return;
+
         bool isHoldingInput = inputService.IsHoldingInput();
 
         if (isHoldingInput)
@@ -66,6 +78,16 @@ public class BallController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Dead"))
-            GameManager.Instance.RestartLevel();
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.RestartLevel();
+            }
+            else
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(
+                    UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+            }
+        }
     }
 }
