@@ -6,7 +6,7 @@ public class GameInitializer : MonoBehaviour
 
     private void Start()
     {
-        if (AdvertisingService.Instance == null && advertisingServicePrefab != null)
+        if (FindObjectOfType<AdvertisingService>() == null && advertisingServicePrefab != null)
             Instantiate(advertisingServicePrefab);
 
         StartGame();
@@ -23,5 +23,20 @@ public class GameInitializer : MonoBehaviour
     {
         if (AdvertisingService.Instance != null)
             AdvertisingService.Instance.ShowInterstitial();
+    }
+
+    private void ShowRewardedAdExample()
+    {
+        AdvertisingService.Instance.ShowRewardedAd((success) =>
+        {
+            if (success)
+            {
+                Debug.Log("Reward granted!");
+            }
+            else
+            {
+                Debug.Log("Reward not granted");
+            }
+        });
     }
 }

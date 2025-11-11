@@ -412,9 +412,9 @@ MonoBehaviour:
   riseGravity: -9.8
   maxFallSpeed: 10
   maxRiseSpeed: 10
+  smoothTime: 0.5
   target: {fileID: 330350897}
   targetRightwardSpeed: 10
-  smoothTime: 0.5
 --- !u!114 &223881780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,7 +427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f76de8af8674341b7373e7bab8d44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Score
-  scoreText: {fileID: 1442246471}
 --- !u!1 &330350896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,6 +1069,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442246469}
   m_CullTransparentMesh: 1
+--- !u!1 &1575036429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1575036432}
+  - component: {fileID: 1575036431}
+  - component: {fileID: 1575036430}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1575036430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575036429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef864be1c8b5b94e96f2958fc42db37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameInitializer
+  advertisingServicePrefab: {fileID: 1575036429}
+--- !u!114 &1575036431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575036429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2579e62d4bb483f46a45093e26a60b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdvertisingService
+  androidGameId: 5983049
+  iosGameId: 5983048
+  bannerPlacementId: Banner_Android
+  interstitialPlacementId: Interstitial_Android
+  rewardedPlacementId: Rewarded_Android
+--- !u!4 &1575036432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575036429}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &120803679892436047
 Transform:
   m_ObjectHideFlags: 0
@@ -1252,9 +1314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6263f0ef32a533443a541d0b7f4a5250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 3475117355767311910, guid: 675fa779e6c964f479fde7b49fcd8774, type: 3}
-  spawnPosition: {x: 25, y: 0, z: 0}
-  playerTag: Player
 --- !u!61 &5722318055679072404
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1482,3 +1541,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 5006727244670430610}
   - {fileID: 1345237850}
+  - {fileID: 1575036432}
