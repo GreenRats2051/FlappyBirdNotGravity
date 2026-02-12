@@ -1,5 +1,7 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using VContainer;
+using static UnityEngine.Rendering.VolumeComponent;
 
 public class ImprovedObjectSpawner : MonoBehaviour
 {
@@ -12,6 +14,13 @@ public class ImprovedObjectSpawner : MonoBehaviour
     [SerializeField] private int maxAmount = 1;
 
     private List<Vector2> spawnedPositions = new List<Vector2>();
+    private ObjectPoolManager poolManager;
+
+    [Inject]
+    public void Construct(ObjectPoolManager poolManager)
+    {
+        this.poolManager = poolManager;
+    }
 
     public void SpawnObjects()
     {
@@ -33,8 +42,7 @@ public class ImprovedObjectSpawner : MonoBehaviour
 
             if (IsPositionValid(spawnPosition))
             {
-                GameObject spawnedObject = GameManager.Instance.PoolManager.SpawnFromPool(objectPoolTag, spawnPosition, Quaternion.identity);
-
+                GameObject spawnedObject = poolManager.SpawnFromPool(objectPoolTag, spawnPosition, Quaternion.identity);
                 spawnedPositions.Add(spawnPosition);
                 break;
             }

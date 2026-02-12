@@ -1,39 +1,30 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using VContainer;
+using VContainer.Unity;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
-
     [SerializeField] private ScoreSystem scoreSystem;
     [SerializeField] private ObjectPoolManager poolManager;
+
+    private LifetimeScope scope;
 
     public ScoreSystem ScoreSystem => scoreSystem;
     public ObjectPoolManager PoolManager => poolManager;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            InitializeSystems();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+        scope = GetComponent<LifetimeScope>();
 
-    private void InitializeSystems()
-    {
-        scoreSystem.Initialize();
-        poolManager.Initialize();
+        if (scope == null)
+        {
+            scope = gameObject.AddComponent<LifetimeScope>();
+        }
     }
 
     public void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
 }

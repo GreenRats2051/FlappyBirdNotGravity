@@ -1,4 +1,6 @@
 using UnityEngine;
+using VContainer;
+using static UnityEngine.Rendering.VolumeComponent;
 
 public class BallController : MonoBehaviour
 {
@@ -19,21 +21,24 @@ public class BallController : MonoBehaviour
     private IInputService inputService;
     private float targetVelocityY;
 
-    public void Initialize(IInputService inputService)
+    [Inject]
+    public void Construct(IInputService inputService)
     {
         this.inputService = inputService;
-        rigidBody.gravityScale = 0;
-        initialLocalPosition = transform.localPosition;
     }
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        rigidBody.gravityScale = 0;
+        initialLocalPosition = transform.localPosition;
+    }
 
+    private void Start()
+    {
         if (inputService == null)
         {
-            inputService = new UnityInputService();
-            Initialize(inputService);
+            Debug.LogError("InputService не внедрен! Проверьте VContainer настройки.");
         }
     }
 
@@ -65,7 +70,6 @@ public class BallController : MonoBehaviour
             targetVelocityY = -maxFallSpeed;
 
         float newVelocityY = Mathf.SmoothDamp(rigidBody.linearVelocity.y, targetVelocityY, ref currentVelocity.y, smoothTime);
-
         rigidBody.linearVelocity = new Vector2(0, newVelocityY);
     }
 
@@ -85,8 +89,7 @@ public class BallController : MonoBehaviour
             }
             else
             {
-                UnityEngine.SceneManagement.SceneManager.LoadScene(
-                    UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+                UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
