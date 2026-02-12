@@ -50,6 +50,6 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0",
-    "com.gustavopsantos.vcontainer": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer"
+    "jp.hadashikick.vcontainer": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.17.0"
   }
 }
